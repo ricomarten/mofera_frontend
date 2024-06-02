@@ -1,4 +1,4 @@
-import Sidebar from "./SidebarClient";
+import Sidebar from "./Sidebar";
 
 const Dashboard = ()=>{
     return(

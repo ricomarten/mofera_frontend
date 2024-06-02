@@ -11,8 +11,9 @@ const BarChart = () => {
     datasets: [
       {
         label: "Dataset",
-        backgroundColor: "rgb(134, 183, 105)",
-        borderColor: "rgb(134, 183, 105)",
+        backgroundColor: "rgb(1,107,69,0.5)",
+        borderColor: "rgb(1,107,69)",
+        borderWidth: 2,
         //data: [27, 14, 47, 33, 20, 5, 50],
         data: labels.map(() => Math.floor(Math.random() * 100)),
       },

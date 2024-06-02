@@ -73,6 +73,8 @@ function App() {
         {/* XYZ Desktop */}
         <Route path="/receivedpackage" element={<ReceivedPackage />} exact />
         <Route path="/dashboard" element={<TestDashboard />} exact />
+        <Route path="/dashboard2" element={<Dashboard />} exact />
+        <Route path="/dashboard3" element={<XYZDashboardDryLeaves />} exact />
 
         {/* Admin */}
         <Route path="/usermanagement" element={<UserManagement />} exact />
