@@ -26,8 +26,9 @@ import AddPowder from './pages/centra/AddPowder';
 import AddCheckpoint from './pages/guard_harbour/AddCheckpoint';
 import ViewCheckpoint from './pages/guard_harbour/ViewCheckpoint';
 import ReceivedPackage from './pages/xyz/xyz_desktop/ReceivedPackage';
-import Dashboard from './pages/xyz/xyz_desktop/Dashboard';
-import TestDashboard from './pages/xyz/xyz_desktop/TesDashboard';
+import DryDashboard from './pages/xyz/xyz_desktop/DryDashboard';
+import WetDashboard from './pages/xyz/xyz_desktop/WetDashboard';
+import PowderDashboard from './pages/xyz/xyz_desktop/PowderDashboard';
 import XYZDashboardDryLeaves from './pages/xyz/xyz_desktop/XYZDashboardDryLeaves'
 
 
@@ -72,8 +73,10 @@ function App() {
 
         {/* XYZ Desktop */}
         <Route path="/receivedpackage" element={<ReceivedPackage />} exact />
-        <Route path="/dashboard" element={<TestDashboard />} exact />
-        <Route path="/dashboard2" element={<Dashboard />} exact />
+        <Route path="/dashboard" element={<WetDashboard />} exact />
+        <Route path="/dashboard-wet" element={<WetDashboard />} exact />
+        <Route path="/dashboard-dry" element={<DryDashboard />} exact />
+        <Route path="/dashboard-powder" element={<PowderDashboard />} exact />
         <Route path="/dashboard3" element={<XYZDashboardDryLeaves />} exact />
 
         {/* Admin */}

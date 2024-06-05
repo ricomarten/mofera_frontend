@@ -33,13 +33,13 @@ const Sidebar = () => {
             {openMenus.includes(0) && (
               <ul className="pl-8 bg-primary">
                 <li>
-                  <a href="#" className="block p-2 text-left hover:bg-white hover:text-green-900  hover:rounded-full">Wet Leaves</a>
+                  <a href="/dashboard-wet" className="block p-2 text-left hover:bg-white hover:text-green-900  hover:rounded-full">Wet Leaves</a>
                 </li>
                 <li>
-                  <a href="#" className="block p-2 text-left hover:bg-white hover:text-green-900  hover:rounded-full">Dry Leaves</a>
+                  <a href="/dashboard-dry" className="block p-2 text-left hover:bg-white hover:text-green-900  hover:rounded-full">Dry Leaves</a>
                 </li>
                 <li>
-                  <a href="#" className="block p-2 text-left hover:bg-white hover:text-green-900  hover:rounded-full">Powder</a>
+                  <a href="/dashboard-powder" className="block p-2 text-left hover:bg-white hover:text-green-900  hover:rounded-full">Powder</a>
                 </li>
               </ul>
             )}
