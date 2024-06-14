@@ -65,6 +65,55 @@ const data = [
 		Weight: '30 kg',
         Date:"31 Aug 2023"
 	},
+  {
+		id: 6,
+		title: 'Centra Unit 6',
+        WetLeavesID:'#123',
+		Weight: '30 kg',
+        Date:"31 Aug 2023"
+	},
+  {
+		id: 7,
+		title: 'Centra Unit 7',
+        WetLeavesID:'#123',
+		Weight: '30 kg',
+        Date:"31 Aug 2023"
+	},
+  {
+		id: 8,
+		title: 'Centra Unit 8',
+        WetLeavesID:'#123',
+		Weight: '30 kg',
+        Date:"31 Aug 2023"
+	},
+  {
+		id: 9,
+		title: 'Centra Unit 9',
+        WetLeavesID:'#123',
+		Weight: '30 kg',
+        Date:"31 Aug 2023"
+	},
+  {
+		id: 10,
+		title: 'Centra Unit 10',
+        WetLeavesID:'#123',
+		Weight: '30 kg',
+        Date:"31 Aug 2023"
+	},
+  {
+		id: 11,
+		title: 'Centra Unit 11',
+        WetLeavesID:'#123',
+		Weight: '30 kg',
+        Date:"31 Aug 2023"
+	},
+  {
+		id: 12,
+		title: 'Centra Unit 12',
+        WetLeavesID:'#123',
+		Weight: '30 kg',
+        Date:"31 Aug 2023"
+	},
 ]
 
 createTheme('solarized', {
@@ -97,7 +146,7 @@ function Table() {
 			//expandableRows
 			//expandableRowsComponent={ExpandedComponent}
             pagination
-            theme="solarized"
+            //theme="solarized"
             fixedHeader
             fixedHeaderScrollHeight="300px"
 		/>

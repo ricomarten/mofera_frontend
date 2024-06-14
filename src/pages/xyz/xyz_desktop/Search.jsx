@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Search.css'; // For styling (create this file separately)
 import { CiSearch } from "react-icons/ci";
 
-const SearchForm = ({ onSearch }) => {
+const SearchForm = () => {
   const [query, setQuery] = useState('');
   
 

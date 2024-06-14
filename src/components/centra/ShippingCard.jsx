@@ -1,5 +1,5 @@
 import React from "react";
-import '../../style/Shipping.css'
+import '../../../src/style/Shipping.css'
 function ShippingCard(props) {
     return (
         <div className='box'>

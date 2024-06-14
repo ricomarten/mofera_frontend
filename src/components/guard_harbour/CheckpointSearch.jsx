@@ -3,39 +3,90 @@ import CheckpointBox from "./CheckpointBox";
 import { AiOutlineSearch } from 'react-icons/ai';
 import '../../style/xyz/xyz_mobile/FindRescalePackage.css';
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 function CheckpointSearch(){
     // Sample checkpoint data
     const checkpoints = [
         {
             "id": 101,
-            "sentFromCentra": 4,
-            "quantityWeight": "25 kg",
+            "shippingId": 4,
+            "totalPackagesArrived": 3,
             "arrivedDate": "10-05-2024",
             "arrivedTime": "10:30 AM"
         },
         {
             "id": 102,
-            "sentFromCentra": 2,
-            "quantityWeight": "29 kg",
+            "shippingId": 3,
+            "totalPackagesArrived": 5,
             "arrivedDate": "09-05-2024",
             "arrivedTime": "10:30 AM"
         },
         {
             "id": 103,
-            "sentFromCentra": 1,
-            "quantityWeight": "30 kg",
+            "shippingId": 2,
+            "totalPackagesArrived": 6,
             "arrivedDate": "08-05-2024",
             "arrivedTime": "10:30 AM"
         },
         {
             "id": 104,
-            "sentFromCentra": 10,
-            "quantityWeight": "30 kg",
+            "shippingId": 1,
+            "totalPackagesArrived": 2,
             "arrivedDate": "08-05-2024",
             "arrivedTime": "10:20 AM"
         }
     ];
+
+    const shippingData = [
+        { "id": 1 },
+        { "id": 2 },
+        { "id": 3 },
+        { "id": 4 },
+    ]
+
+    const packageData = [
+        {
+            "id": 129,
+            "centraId": 4,
+            "shippingId": 1,
+        },
+        {
+            "id": 101,
+            "centraId": 4,
+            "shippingId": 1,
+        },
+        {
+            "id": 90,
+            "centraId": 20,
+            "shippingId": 2,
+        },
+        {
+            "id": 87,
+            "centraId": 20,
+            "shippingId": 2,
+        },
+        {
+            "id": 10,
+            "centraId": 14,
+            "shippingId": 3,
+        },
+        {
+            "id": 26,
+            "centraId": 14,
+            "shippingId": 3,
+        },
+        {
+            "id": 100,
+            "centraId": 32,
+            "shippingId": 4,
+        },
+        {
+            "id": 109,
+            "centraId": 32,
+            "shippingId": 4,
+        },
+    ]
 
     const navigate = useNavigate();
     const [input, setInput] = useState("");
@@ -46,6 +97,17 @@ function CheckpointSearch(){
         // Set initial search result to full jsonData when component mounts
         setSearchResult(checkpoints);
     }, []);
+
+    // Function to get total packages sent based on shippingID
+    function getTotalPackagesSent(shippingID) {
+        return packageData.filter(pkg => pkg.shippingId === shippingID).length;
+    };
+
+    // Function to get unitCentra based on shippingID
+    function getUnitCentra(shippingID) {
+        const packageWithShippingID = packageData.find(pkg => pkg.shippingId === shippingID);
+        return packageWithShippingID ? packageWithShippingID.centraId : ''; // Check if packageWithShippingID is not undefined before accessing its properties
+    };
 
     function handleSearch(e) {
         setInput(e);
@@ -61,7 +123,8 @@ function CheckpointSearch(){
         setFilter(e.target.value);
         const filteredData = checkpoints.filter(checkpoint => {
             const includeId = checkpoint.id.toString().includes(input);
-            const includeCentra = checkpoint.sentFromCentra.toString().includes(e.target.value);
+            const unitCentra = getUnitCentra(checkpoint.shippingId);
+            const includeCentra = unitCentra && unitCentra.toString().startsWith(e.target.value);
             return includeId && includeCentra;
         });
         setSearchResult(filteredData);
@@ -102,18 +165,25 @@ function CheckpointSearch(){
                     </div>
                 </div>
 
-                <div className='search relative py-4 w-full'>
+                <div className='searchPackage relative py-4 w-full'>
                     <input type="search" placeholder='Search Checkpoint' value={input} onChange={(e) => handleSearch(e.target.value)}/>
                     <button className='absolute right-8 top-1/2 p-3 rounded-full -translate-y-1/2 text-white'>
                         <AiOutlineSearch/>
                     </button>
                 </div>
 
-                <div className='search relative py-4 mb-3 w-5/6'>
+                <div className='searchPackage relative py-4 mb-3 w-5/6'>
                     <input type="search" placeholder='Filter by Centra (1-36)' value={filter} onChange={handleFilter}/>
                 </div>
 
                 <div className="w-full">
+                    <motion.div
+                    key="add"
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -300, opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    >
                     {Object.entries(groupedCheckpoints).map(([date, checkpoints]) => (
                         <div key={date}>
                             <p className="font-medium text-white text-2xl font-semibold text-left relative ml-12">{date}</p>
@@ -121,13 +191,15 @@ function CheckpointSearch(){
                                 <CheckpointBox
                                     key={checkpoint.id}
                                     id={checkpoint.id}
-                                    fromCentra={checkpoint.sentFromCentra}
-                                    quantity={checkpoint.quantityWeight}
+                                    fromCentra={getUnitCentra(checkpoint.shippingId)}
+                                    totalPackagesSent={getTotalPackagesSent(checkpoint.shippingId)}
+                                    totalPackagesArrived={checkpoint.totalPackagesArrived}
                                     arrivedTime={checkpoint.arrivedTime}
                                 />
                             ))}
                         </div>
                     ))}
+                    </motion.div>
                 </div>
                 
             </div>

@@ -1,38 +1,122 @@
-import { useState, useEffect } from 'react'
-import moferalogowhite from '../../assets/xyz/mofera-logo-white.svg'
-import menu from '../../assets/xyz/Menu.svg'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import desktoplogo from '../../assets/desktop/mofera-logo.svg';
+import hamburger from '../../assets/desktop/menu-bar.svg';
+import exit from '../../assets/desktop/exit.svg';
+
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { FaShippingFast } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { PiPackageFill } from "react-icons/pi";
+import { IoNotifications } from "react-icons/io5";
+import { MdOutlineMonitor } from "react-icons/md";
 
 function Sidebar() {
-    return (
-        <div className="bg-octonary hidden lg:block h-screen w-1/5 flex flex-col justify-between items-center">
-            <div className='flex flex-col justify-center items-center gap-8'>
-                <button>
-                    <img className='h-14 absolute top-4 left-10' src={menu}></img>
-                </button>
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
 
-                <br></br>
-        
-                <img className='h-auto w-1/2 max-w-full mt-16' src={moferalogowhite}></img>
+  const toggleMenu = () => {
+    setIsMinimized(!isMinimized);
+  };
 
-                <div className='flex flex-col justify-center items-center gap-5 w-full mt-5'>
-                    <nav>
-                        <ul>
-                            <li className="py-4 flex justify-start items-center w-full hover:bg-green-700 hover:text-white cursor-pointer text-black">Dashboard</li>
-                            <li className="py-4 flex justify-start items-center w-full hover:bg-green-700 hover:text-white cursor-pointer text-black">Shipment Tracker</li>
-                            <li className="py-4 flex justify-start items-center w-full hover:bg-green-700 hover:text-white cursor-pointer text-black">Checkpoint</li>
-                            <li className="py-4 flex justify-start items-center w-full hover:bg-green-700 hover:text-white cursor-pointer text-black">Arrived Package</li>
-                            <li className="py-4 flex justify-start items-center w-full hover:bg-green-700 hover:text-white cursor-pointer text-black">Notifications</li>
-                            <li className="py-4 flex justify-start items-center w-full hover:bg-green-700 hover:text-white cursor-pointer text-black">Centra Activity Monitor</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+  const toggleDropdown = () => {
+    setDashboardOpen(!dashboardOpen);
+  };
 
-            <div className='flex-grow'></div>
+  const handleResize = () => {
+    if (window.innerWidth <= 1274) {
+      setIsMinimized(true);
+    } else {
+      setIsMinimized(false);
+    }
+  };
 
-            <button className="py-4 w-full hover:bg-red-600 hover:text-white">Sign Out</button>
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <div
+      className={`bg-primary h-screen flex flex-col justify-between items-center transition-all duration-300 ${
+        isMinimized ? 'w-16' : 'w-1/5'
+      }`}
+    >
+      <div className="bg-primary flex flex-col justify-center items-center gap-8">
+        <div className="bg-primary flex items-center w-full p-5">
+          <button onClick={toggleMenu}>
+            <img height="24" width="24" className="bg-primary mr-4" src={hamburger} />
+          </button>
+          {!isMinimized && (
+            <span className="bg-primary ml-4">
+              <img className="bg-primary h-auto w-auto" src={desktoplogo} />
+            </span>
+          )}
         </div>
-    )
+
+        {!isMinimized && (
+          <nav className="w-full">
+            <ul>
+              <li
+                onClick={toggleDropdown}
+                className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white"
+              > 
+                <MdOutlineDashboardCustomize className='text-3xl mr-4'></MdOutlineDashboardCustomize>
+                  Dashboard
+              </li>
+              {dashboardOpen && (
+                <>
+                  <li className="bg-primary py-2 px-8 ml-5 text-left text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                    <Link to="/dashboard-wet">Wet Leaves</Link>
+                  </li>
+                  <li className="bg-primary py-2 px-8 ml-5 text-left text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                    <Link to="/dashboard-dry">Dry Leaves</Link>
+                  </li>
+                  <li className="bg-primary py-2 px-8 ml-5 text-left text-white hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none cursor-pointer w-full">
+                    <Link to="/dashboard-powder">Powder</Link>
+                  </li>
+                </>
+              )}
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+                <FaShippingFast className='text-3xl' />
+                <Link to="/shipmenttracker" className='ml-4'>Shipment Tracker</Link>
+              </li>
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+                <FaLocationDot className='text-3xl' />
+                <Link to="/checkpoint" className='ml-4'>Checkpoint</Link>
+              </li>
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+                <PiPackageFill className='text-3xl' />
+                <Link to="/arrivedpackages" className='ml-4'>Arrived Packages</Link>
+              </li>
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+              <IoNotifications className='text-3xl' />
+                <Link to="/notifications" className='ml-4'>Notifications</Link>
+              </li>
+              <li className="bg-primary py-4 px-8 flex justify-start items-center w-full hover:bg-white hover:text-green-800 rounded hover:rounded-full hover:rounded-r-none font-medium cursor-pointer text-white">
+                <MdOutlineMonitor className='text-4xl' />
+                <Link to="/centraactivitymonitor" className='text-left ml-4'>Centra Activity Monitor</Link>
+              </li>
+            </ul>
+          </nav>
+        )}
+      </div>
+
+      <div className="flex-grow"></div>
+
+      <div className="bg-primary w-full col-span-10 flex flex-col justify-between">
+        <button className="bg-primary mb-5">
+          {!isMinimized && (
+            <img src={exit} className="bg-primary ml-6 mt-20" />
+          )}
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default Sidebar;
